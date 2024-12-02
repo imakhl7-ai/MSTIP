@@ -1,0 +1,121 @@
+Myself Akhilraj, a cyber security analyst who is looking forward a career in the field of cyber security. As a part of my internship, I did a task based on VAPT for a Web Application.
+
+The target web application was http://testphp.vulnweb.com/ .
+
+Let me show my roadmap.
+
+Let's go through an example of a web application security assessment using OWASP ZAP, Burp Suite, and passive reconnaissance tools step by step.
+Scenario: Assess a test web application: http://testphp.vulnweb.com/
+
+**STEP 1: PASSIVE RECONNAISSANCE
+
+a) Whois Lookup
+Tool: Use any online Whois lookup tool like Whois Lookup.
+
+Steps:
+  Visit the Whois website.
+  Enter the URL testphp.vulnweb.com in the search bar.
+
+Expected Output:
+  Registrar information (e.g., NameCheap).
+  Domain creation and expiration dates.
+  Nameservers and registrant information (if available).
+
+**STEP 2 : VULNERABILITY SCANNING USING NESSUS
+
+a) Setup Nessus
+  Install Nessus:
+  Download from Tenable and install Nessus (Nessus Essentials for free use).
+  Configure Nessus:
+  Launch Nessus via https://localhost:8834/ (default port).
+  Register with an activation code and create a new user.
+
+b) Create a New Scan
+  Log in to Nessus.
+Steps:
+  Click New Scan and choose the Web Application Tests template.
+  Configure the scan with the following details:
+  Name: Test Web App Scan
+  Target: http://testphp.vulnweb.com/
+  Save the scan and click Launch to start.
+c) Monitor the Scan
+  The scan will take some time depending on the web app's complexity.
+  Nessus will probe for issues like:
+  SQL Injection
+  XSS (Cross-Site Scripting)
+  Insecure Cookies
+  Missing Security Headers
+d) Review the Results
+  Once the scan is complete, click on the scan to view the results.
+  Look for:
+  High/critical vulnerabilities.
+  Detailed descriptions and evidence of the vulnerabilities.
+  Sample Findings:
+  SQL Injection: Detected on GET /artists.php?artist=.
+  XSS: Detected on the search input.
+  Outdated Server Software: Apache version with known CVEs.
+
+**STEP 3 : INTERCEPT TRAFFIC USING BURP SUITE
+
+Intercept a request and modify it in Repeater.
+Inject XSS payload 
+        (<script>alert('XSS')</script>) or attempt to verify SQL Injection manually.
+Send the request and observe the response for vulnerabilities.
+
+
+Let's modify the process using Nessus instead of OWASP ZAP for scanning the web application. We’ll still use passive reconnaissance and traffic interception tools like Burp Suite. Here's a detailed example:
+
+Target: http://testphp.vulnweb.com/
+Step 1: Passive Reconnaissance (Whois, Netcraft, Shodan)
+(As outlined previously)
+
+Step 2: Vulnerability Scanning Using Nessus
+a) Setup Nessus
+Install Nessus:
+Download from Tenable and install Nessus (Nessus Essentials for free use).
+Configure Nessus:
+Launch Nessus via https://localhost:8834/ (default port).
+Register with an activation code and create a new user.
+b) Create a New Scan
+Log in to Nessus.
+Steps:
+Click New Scan and choose the Web Application Tests template.
+Configure the scan with the following details:
+Name: Test Web App Scan
+Target: http://testphp.vulnweb.com/
+Save the scan and click Launch to start.
+c) Monitor the Scan
+The scan will take some time depending on the web app's complexity.
+Nessus will probe for issues like:
+SQL Injection
+XSS (Cross-Site Scripting)
+Insecure Cookies
+Missing Security Headers
+d) Review the Results
+Once the scan is complete, click on the scan to view the results.
+Look for:
+High/critical vulnerabilities.
+Detailed descriptions and evidence of the vulnerabilities.
+Sample Findings:
+SQL Injection: Detected on GET /artists.php?artist=.
+XSS: Detected on the search input.
+Outdated Server Software: Apache version with known CVEs.
+Step 3: Intercept Traffic Using Burp Suite
+(Same process as before)
+
+Intercept a request and modify it in Repeater.
+Inject XSS payload (<script>alert('XSS')</script>) or attempt to verify SQL Injection manually.
+Send the request and observe the response for vulnerabilities.
+
+**STEP 4 : MITIGATION STRATEGIES
+
+  SQL Injection	Found on GET /artists.php?artist= -->	Use prepared statements (e.g., mysqli_prepare).
+  XSS	Found on search form -->	Use output encoding, CSP headers, and input validation.
+  Outdated Server	Apache version detected (e.g., 2.4.x) -->	Update server to the latest secure version.
+  Missing Security Headers -->	Missing X-Content-Type-Options, CSP headers	Add relevant security headers to prevent common attacks.
+
+These are my observations and steps that i did throughout my VAPT of testphp.vulnweb.com.
+
+Thank you.
+Regards,
+Akhilraj A
